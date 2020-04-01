@@ -2,7 +2,6 @@
 title: 'Construye un componente simples'
 tocTitle: 'Componente Simples'
 description: 'Construye un componente simple en aislamiento'
-commit: b2274bd
 ---
 
 Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e). Es un proceso que construye UIs de “abajo hacia arriba”, empezando con los componentes y terminando con las vistas. CDD te ayudará a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.
@@ -22,30 +21,43 @@ Este proceso es similar a [Test-driven development](https://en.wikipedia.org/wik
 
 ## Ajustes iniciales
 
-Primero, vamos a crear el componente Task y el archivo de historias de Storybook que lo acompaña: `src/components/Task.js` y `src/components/Task.stories.js`.
+Primero, vamos a crear el componente Task y el archivo de historias de Storybook que lo acompaña: `src/components/Task.svelte` y `src/components/Task.stories.js`.
 
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea (para moverla entre las listas):
 
 ```html
-<!--src/components/Task.vue-->
-<template>
-  <div class="list-item">
-    <input type="text" :readonly="true" :value="this.task.title" />
-  </div>
-</template>
-
+<!--src/components/Task.svelte-->
 <script>
-  export default {
-    name: 'task',
-    props: {
-      task: {
-        type: Object,
-        required: true,
-        default: () => ({}),
-      },
-    },
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
+
+  // event handler for Pin Task
+  function PinTask() {
+    dispatch('onPinTask', {
+      id: task.id,
+    });
+  }
+
+  // event handler for Archive Task
+  function ArchiveTask() {
+    dispatch('onArchiveTask', {
+      id: task.id,
+    });
+  }
+
+  // Task props
+  export let task = {
+    id: '',
+    title: '',
+    state: '',
+    updated_at: new Date(2019, 0, 1, 9, 0),
   };
 </script>
+
+<div class="list-item">
+  <input type="text" value={task.title} readonly />
+</div>
 ```
 
 Arriba, renderizamos directamente `Task` basándonos en la estructura HTML existente de la app Todos.
@@ -53,14 +65,14 @@ Arriba, renderizamos directamente `Task` basándonos en la estructura HTML exist
 A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
 ```javascript
-//src/components/Task.stories.js
-import { action } from '@storybook/addon-actions';
-import Task from './Task';
+// src/components/Task.stories.js
+import Task from './Task.svelte';
+import { action } from "@storybook/addon-actions";
 export default {
   title: 'Task',
-  // Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
 };
+
 export const actionsData = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
@@ -73,46 +85,41 @@ export const taskData = {
   updated_at: new Date(2019, 0, 1, 9, 0),
 };
 
-const taskTemplate = `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`;
-
 // default task state
 export const Default = () => ({
-  components: { Task },
-  template: taskTemplate,
+  Component: Task,
   props: {
-    task: {
-      default: () => taskData,
-    },
+    task: taskData,
   },
-  methods: actionsData,
+  on: {
+    ...actionsData,
+  },
 });
 // pinned task state
 export const Pinned = () => ({
-  components: { Task },
-  template: taskTemplate,
+  Component: Task,
   props: {
     task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_PINNED',
-      }),
+      ...taskData,
+      state: 'TASK_PINNED',
     },
   },
-  methods: actionsData,
+  on: {
+    ...actionsData,
+  },
 });
 // archived task state
 export const Archived = () => ({
-  components: { Task },
-  template: taskTemplate,
-   props: {
+  Component: Task,
+  props: {
     task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_ARCHIVED',
-      }),
+      ...taskData,
+      state: 'TASK_ARCHIVED',
     },
   },
-  methods: actionsData,
+  on: {
+    ...actionsData,
+  },
 });
 ```
 
@@ -129,11 +136,11 @@ Para decirle a Storybook sobre el componente que estamos documentando, creamos u
 - `title` -- cómo referirse al componente en la barra lateral de la aplicación Storybook,
 - `excludeStories` -- información requerida por la historia, pero no debe ser presentada por la aplicación Storybook.
 
-Para definir nuestras historias, exportamos una función para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, un componente con un conjunto de props) en un estado dado, exactamente como un [Componente funcional sin estado](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
+Para definir nuestras historias, exportamos una función para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, un componente con un conjunto de props) en un estado dado.
 
 `action()` nos permite crear un callback que aparecerá en el panel **actions** de la UI de Storybook cuando es cliqueado. Entonces, cuando construyamos un botón pin, podremos determinar en la UI de prueba si un click en el botón es exitoso o no.
 
-Como necesitamos pasar el mismo conjunto de acciones a todas las permutaciones de nuestro componente, es conveniente agruparlas en una sola variable de `actionsData` y usarlas para pasarlas a la definición de nuestra historia cada vez (donde se accede a través de la propiedad `methods`).
+Como necesitamos pasar el mismo conjunto de acciones a todas las permutaciones de nuestro componente, es conveniente agruparlas en una sola variable de `actionsData` y usarlas para pasarlas a la definición de nuestra historia cada vez (donde se accederá cuando se invoque la función `dispatch`).
 
 Otra cosa interesante acerca de agrupar las `actionsData` que un componente necesita, es que puedes usar `export` y utilizarlas en historias para otros componentes que reutilicen este componente, como veremos luego.
 
@@ -145,7 +152,7 @@ Las <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>A
 
 ## Configuración
 
-Es necesario realizar algunos cambios en la configuración del Storybook, para que sepa no solo dónde buscar las historias que acabamos de crear, sino también usar el CSS que se agregó en el [capítulo anterior](/vue/es/get-started).
+Es necesario realizar algunos cambios en la configuración del Storybook, para que sepa no solo dónde buscar las historias que acabamos de crear, sino también usar el CSS que se agregó en el [capítulo anterior](/svelte/es/get-started).
 
 Comencemos cambiando el archivo de configuración de Storybook (`.storybook/main.js`) a lo siguiente:
 
@@ -155,23 +162,25 @@ module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
+
 ```
 
 Después de hacer este cambio, una vez más dentro de la carpeta `.storybook`, cree un nuevo archivo llamado `preview.js` con el siguiente contenido:
 
 ```javascript
 // .storybook/preview.js
-import '../src/index.css';
+import '../public/global.css'
 ```
 
 Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:
 
-<video autoPlay muted playsInline controls >
+<video autoPlay muted playsInline loop>
   <source
     src="/intro-to-storybook//inprogress-task-states.mp4"
     type="video/mp4"
   />
 </video>
+
 
 ## Construyendo los estados
 
@@ -180,48 +189,53 @@ Ahora tenemos configurado Storybook, los estilos importados y los casos de prueb
 Nuestro componente todavía es bastante rudimentario en este momento. Vamos a hacer algunos cambios para que coincida con el diseño previsto sin entrar en demasiados detalles:
 
 ```html
-<!--src/components/Task.vue-->
-<template>
-  <div :class="taskClass">
-    <label class="checkbox">
-      <input type="checkbox" :checked="isChecked" :disabled="true" name="checked" />
-      <span class="checkbox-custom" @click="$emit('archiveTask', task.id)" />
-    </label>
-    <div class="title">
-      <input type="text" :readonly="true" :value="this.task.title" placeholder="Input title" />
-    </div>
-    <div class="actions">
-      <a @click="$emit('pinTask', task.id)" v-if="!isChecked">
-        <span class="icon-star" />
-      </a>
-    </div>
-  </div>
-</template>
+<!--src/components/Task.svelte-->
 
 <script>
-  export default {
-    name: 'task',
-    props: {
-      task: {
-        type: Object,
-        required: true,
-        default: () => ({
-          id: '',
-          state: '',
-          title: '',
-        }),
-      },
-    },
-    computed: {
-      taskClass() {
-        return `list-item ${this.task.state}`;
-      },
-      isChecked() {
-        return this.task.state === 'TASK_ARCHIVED';
-      },
-    },
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
+
+  // event handler for Pin Task
+  function PinTask() {
+    dispatch('onPinTask', {
+      id: task.id,
+    });
+  }
+  // event handler for Archive Task
+  function ArchiveTask() {
+    dispatch('onArchiveTask', {
+      id: task.id,
+    });
+  }
+
+  // Task props
+  export let task = {
+    id: '',
+    title: '',
+    state: '',
+    updated_at: new Date(2019, 0, 1, 9, 0),
   };
+
+  // reactive declaration (computed prop in other frameworks)
+  $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
+<div class={`list-item ${task.state}`}>
+  <label class="checkbox">
+    <input type="checkbox" checked={isChecked} disabled name="checked" />
+    <span class="checkbox-custom" on:click={ArchiveTask} />
+  </label>
+  <div class="title">
+    <input type="text" readonly value={task.title} placeholder="Input title" />
+  </div>
+  <div class="actions">
+    {#if task.state !== 'TASK_ARCHIVED'}
+    <a href="/" on:click|preventDefault={PinTask}>
+      <span class="icon-star" />
+    </a>
+    {/if}
+  </div>
+</div>
 ```
 
 El maquetado adicional de arriba, combinado con el CSS que hemos importado antes, produce la siguiente UI:
@@ -254,25 +268,37 @@ Asegúrese de que sus componentes muestren datos que no cambien, para que sus pr
 Con el [complemento Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úselo agregando las siguientes dependencias en modo desarrollo:
 
 ```bash
-yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
+npm install -D @storybook/addon-storyshots
 ```
 
-Luego crea un archivo `tests/unit/storybook.spec.js` con el siguiente contenido:
+Luego crea un archivo `src/storybook.test.js` con el siguiente contenido:
 
 ```javascript
-// tests/unit/storybook.spec.js
+// src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
+
 initStoryshots();
 ```
 
-Finalmente, necesitamos agregar una línea a nuestro `jest.config.js`:
+Finalmente, necesitamos hacer un pequeño ajuste a nuestro campo `jest` en `package.json`:
 
-```js
-  // jest.config.js
-  transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
+```json
+{
+  .....
+  "jest":{
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
+      "^.+\\.svelte$": "jest-transform-svelte"
+    },
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ],
+  }
+}
 ```
 
-Una vez hecho lo anterior, podemos ejecutar `yarn test:unit` y veremos el siguiente resultado:
+Una vez hecho lo anterior, podemos ejecutar `npm run test` y veremos el siguiente resultado:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 

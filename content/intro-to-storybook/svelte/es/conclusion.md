@@ -5,9 +5,9 @@ description: 'Pon todo tu conocimiento y aprende más técnicas de Storybook'
 
 Felicitaciones! Creaste tu primer interfaz de usuario en Storybook. En el camino, aprendiste a construir, componer, probar e implementar componentes de interfaz de usuario. Si lo has estado siguiendo, tu repositorio y Storybook desplegado debería verse así:
 
-[📕 **Repositorio de GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code/tree/vue)
+[📕 **Repositorio de GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **Storybook Desplegado**](https://clever-banach-415c03.netlify.com/)
+[🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.com/)
 
 Storybook es una poderosa herramienta para React, React Native, Vue, Angular, Svelte y muchos otros frameworks. Cuenta con una próspera comunidad de desarrolladores y una gran cantidad de complementos. Esta introducción nos lleva superficialmente a lo que es posible. Estamos seguros de que una vez que adoptes Storybook, quedarás impresionado por lo productivo que es crear interfaces de usuario duraderas.
 
@@ -21,9 +21,9 @@ Quieres bucear más profundo? Aquí algunos recursos útiles:
 
 - [**Manual de pruebas visuales**](https://www.chromaticqa.com/book/visual-testing-handbook) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
 
-- [**Discord de Storybook**](https://discord.gg/UUt2PJb) te pone en contacto con la comunidad de Storybook. Obtenga y brinde ayuda a otros usuarios de Storybook.
+- [**Storybook Discord**](https://discord.gg/UUt2PJb)  lo pondrá en contacto con la comunidad de Storybook. No solo ofrece un medio para ayudarlo, sino también para ayudar a la comunidad.
 
-- [**Blog de Storybook**](https://medium.com/storybookjs) muestra las últimas versiones y características para optimizar su flujo de trabajo de desarrollo de UI.
+- [**Blog de Storybook**](https://medium.com/storybookjs) donde leerá sobre los últimos cambios y algunas técnicas para mejorar aún más sus flujos de trabajo de desarrollo con Storybook.
 
 ## Quién hizo LearnStorybook.com?
 
