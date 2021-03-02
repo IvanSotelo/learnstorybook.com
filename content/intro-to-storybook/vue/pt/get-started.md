@@ -2,12 +2,11 @@
 title: 'Tutorial do Storybook para o Vue'
 tocTitle: 'Introdução'
 description: 'Configuração do Storybook num ambiente de desenvolvimento Vue'
+commit: '9e3165c'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.
-Ajuda-o a construir componentes de interface de utilizador (UI na forma original) isolados da lógica de negócio e contexto da aplicação.
-Esta edição de Aprendizagem de Storybook é destinada para Vue.
-Encontram-se disponíveis outras edições quer para [React](/react/pt/get-started), quer para [Angular](/angular/pt/get-started).
+Ajuda-o a construir componentes de interface de utilizador (UI na forma original) isolados da lógica de negócio e contexto da aplicação. Esta edição de Aprendizagem de Storybook é destinada para Vue. Encontram-se disponíveis outras edições quer para [React](/intro-to-storybook/react/pt/get-started), quer para [Angular](/intro-to-storybook/angular/pt/get-started).
 
 ![Storybook e a aplicação](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -18,7 +17,7 @@ Precisamos de alguns passos extra para configurar o processo de compilação no 
 
 ```bash
 # Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook 
+npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook
 
 cd taskbox
 
@@ -53,7 +52,7 @@ Mas, visto que o nosso foco é a criação de um único componente de interface 
 
 ## Reutilizar CSS
 
-A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), logo não precisamos escrever CSS neste tutorial. Copie e cole o [CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) no ficheiro (ou arquivo) `src/index.css` e em seguida importe o CSS para a aplicação editando a tag `<style>` no ficheiro (ou arquivo) `src/App.vue` para que fique assim:
+A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), logo não precisamos escrever CSS neste tutorial. Copie e cole o [CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) no ficheiro (ou arquivo) `src/index.css` e em seguida importe o CSS para a aplicação editando a tag `<style>` no ficheiro (ou arquivo) `src/App.vue` para que fique assim:
 
 ```html
 <style>
@@ -69,17 +68,14 @@ A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https:/
 
 ## Adicionar recursos
 
-De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `public`.
+De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `src/assets`.
 
-<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aqui</a>.</p></div>
-
+<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">aqui</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon src/assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/font src/assets/font
 ```
-
-
 
 E também atualizar o nosso script de execução do storybook (no `package.json`) para servir a pasta `public`
 

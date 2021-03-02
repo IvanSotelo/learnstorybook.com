@@ -4,7 +4,7 @@ tocTitle: 'Empezando'
 description: 'Configurar Storybook en tu entorno de desarrollo'
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React Native; existe otras ediciones para [React](/react/es/get-started), [Vue](/vue/es/get-started), [Angular](/angular/es/get-started) y [Svelte](/svelte/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React Native; existe otras ediciones para [React](/intro-to-storybook/react/es/get-started), [Vue](/intro-to-storybook/vue/es/get-started), [Angular](/intro-to-storybook/angular/es/get-started) y [Svelte](/intro-to-storybook/svelte/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -19,7 +19,6 @@ Antes de sumergirse en el tutorial, tenga en cuenta las siguientes consideracion
 - Necesitará un simulador que funcione o un dispositivo físico configurado correctamente para maximizar su experiencia, los documentos de [react-native](https://facebook.github.io/react-native/docs/getting-started) tienen instrucciones más detalladas sobre cómo lograr esto.
 
 - A lo largo de este tutorial, se utilizará <code>yarn</code>. Si desea utilizar npm, seleccione la opción adecuada durante el proceso de inicialización de la aplicación y reemplace todos los comandos posteriores con npm.
-
 
 Con eso fuera del camino, ejecutemos los siguientes comandos:
 
@@ -66,7 +65,7 @@ jest.mock('global', () => ({
 }));
 ```
 
-Actualice el campo `jest` en` package.json`:
+Actualice el campo `jest` en`package.json`:
 
 ```json
 "jest": {
@@ -99,7 +98,7 @@ Dependiendo de en qué parte de la aplicación estés trabajando, es posible que
 
 ## Reusa CSS
 
-Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Al contrario de los otros tutoriales, no copiaremos sobre el CSS compilado, ya que React Native maneja el estilo de una manera completamente diferente, sino que crea un nuevo archivo `constants/globalStyles.js` y agrega lo siguiente:
+Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), por lo que no necesitaremos escribir CSS en este tutorial. Al contrario de los otros tutoriales, no copiaremos sobre el CSS compilado, ya que React Native maneja el estilo de una manera completamente diferente, sino que crea un nuevo archivo `constants/globalStyles.js` y agrega lo siguiente:
 
 <details>
   <summary>Haga clic para expandir y ver el contenido completo del archivo</summary>
@@ -232,6 +231,7 @@ export const styles = StyleSheet.create({
   },
 });
 ```
+
 </details>
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
@@ -244,22 +244,20 @@ Si desea modificar el estilo, los archivos LESS de origen se proporcionan en el 
 
 Para que coincida con el diseño previsto, deberá descargar los directorios de fuentes e iconos y colocarlos dentro de la carpeta `assets`.
 
-<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas (o directorios) de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puedes tomar la carpeta de iconos directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a> y la fuente <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">aquí</a>.</p></div>
+<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas (o directorios) de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puedes tomar la carpeta de iconos directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">aquí</a> y la fuente <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">aquí</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon assets/icon
 svn export <https://github.com/google/fonts/trunk/ofl/nunitosans> assets/font
 ```
-A continuación, los recursos deben cargarse en la aplicación, para eso vamos a actualizar `App.js` a lo siguiente:
+
+A continuación, los recursos deben cargarse en la aplicación, para eso vamos a actualizar `hooks/useCachedResources.js` a lo siguiente:
 
 ```javascript
-// App.js
+// hooks/useCachedResources.js
 async function loadResourcesAndDataAsync() {
   try {
-    SplashScreen.preventAutoHide();
-
-    // Load our initial navigation state
-    setInitialNavigationState(await getInitialState());
+    SplashScreen.preventAutoHideAsync();
 
     // Load fonts
     await Font.loadAsync({
@@ -270,13 +268,12 @@ async function loadResourcesAndDataAsync() {
       'NunitoSans-Italic': require('./assets/font/NunitoSans-Italic.ttf'),
       NunitoSans: require('./assets/font/NunitoSans-Regular.ttf'),
     });
-
   } catch (e) {
     // We might want to provide this error information to an error reporting service
     console.warn(e);
   } finally {
     setLoadingComplete(true);
-    SplashScreen.hide();
+    SplashScreen.hideAsync();
   }
 }
 ```

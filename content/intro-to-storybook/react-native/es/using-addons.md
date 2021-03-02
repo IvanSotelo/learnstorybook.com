@@ -4,13 +4,12 @@ tocTitle: 'Complementos'
 description: 'Aprende a integrar y usar complementos usando un ejemplo popular'
 ---
 
-Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/addons/introduction/) con el que puede mejorar la experiencia del desarrollador para
-todos en tu equipo.
+Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/docs/react/configure/storybook-addons) con el que puede mejorar la experiencia del desarrollador para todos en tu equipo.
 
 <div class = "aside">
     <strong> ¿Busca una lista de posibles complementos? </strong>
     <br/>
-    😍 Puede ver la lista de complementos de la comunidad con respaldo oficial y con un fuerte respaldo <a href="https://storybook.js.org/addons/addon-gallery/"> aquí </a>.
+    😍 Puede ver la lista de complementos de la comunidad con respaldo oficial y con un fuerte respaldo <a href="https://storybook.js.org/addons"> aquí </a>.
 </div>
 
 Podríamos escribir para siempre sobre la configuración y el uso de complementos para todos sus casos de uso particulares. Por ahora, trabajemos para integrar uno de los complementos más populares dentro del ecosistema de Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
@@ -37,7 +36,6 @@ yarn add -D @storybook/addon-knobs @storybook/addon-ondevice-knobs
 Registra Knobs en tu archivo `storybook/addons.js`.
 
 ```javascript
-
 // storybook/addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-knobs/register';
@@ -47,7 +45,6 @@ import '@storybook/addon-links/register';
 Y tambien en `storybook/rn-addons.js`.
 
 ```javascript
-
 // storybook/rn-addons.js
 import '@storybook/addon-ondevice-actions/register';
 import '@storybook/addon-ondevice-knobs/register';
@@ -68,7 +65,6 @@ Usemos el tipo de knob de objeto en el componente `Task`.
 Primero, importe el decorador `withKnobs` y el tipo de knob `object` a `Task.stories.js`:
 
 ```javascript
-
 // components/Task.stories.js
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
@@ -89,7 +85,6 @@ storiesOf('Task', module)
 Por último, integre el tipo de knob `object` dentro de la historia "predeterminada":
 
 ```javascript
-
 // components/Task.stories.js
 storiesOf('Task', module)
   .addDecorator(withKnobs)
@@ -104,7 +99,7 @@ Como se documenta [aquí](https://github.com/storybooks/storybook/tree/master/ad
 
 ## Complementos evolucionan el alcance de tus Storybooks
 
-Su instancia de Storybook no solo sirve como un maravilloso [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), sino que ahora estamos proporcionando una fuente interactiva de documentación. Los props son geniales, pero un diseñador o alguien completamente nuevo en el código de un componente podrá descubrir su comportamiento muy rápidamente a través de Storybook con el complemento de knobs implementado.
+Su instancia de Storybook no solo sirve como un maravilloso [CDD environment](https://www.componentdriven.org/), sino que ahora estamos proporcionando una fuente interactiva de documentación. Los props son geniales, pero un diseñador o alguien completamente nuevo en el código de un componente podrá descubrir su comportamiento muy rápidamente a través de Storybook con el complemento de knobs implementado.
 
 ## Usando Knobs para encontrar casos de borde
 
@@ -115,7 +110,6 @@ Además, con un fácil acceso para editar los datos pasados ​​a un component
 ¡Gracias a poder probar rápidamente diferentes entradas a un componente, podemos encontrar y solucionar estos problemas con relativa facilidad! Arreglemos el problema de desbordamiento agregando un estilo a `Task.js`:
 
 ```javascript
-
 // components/Task.js
 // This is the input for our task title. It was changed to a simple text contrary to textinput,
 // to illustrate how to see what's intended
@@ -139,7 +133,6 @@ Por supuesto, siempre podemos reproducir este problema ingresando la misma entra
 Agreguemos una historia para el caso de texto largo en `Task.stories.js`:
 
 ```javascript
-
 // components/Task.stories.js
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
@@ -157,7 +150,3 @@ Ahora que hemos agregado la historia, podemos reproducir este caso extremo con f
 ### Fusionar cambios
 
 ¡No olvides fusionar tus cambios con git!
-
-## Compartir complementos con el equipo
-
-Knobs es una excelente manera de hacer que los no desarrolladores jueguen con sus componentes e historias. Sin embargo, puede ser difícil para ellos ejecutar Storybook en su máquina local. Es por eso que implementar storybook en una ubicación en línea puede ser realmente útil. ¡En el próximo capítulo haremos exactamente eso!

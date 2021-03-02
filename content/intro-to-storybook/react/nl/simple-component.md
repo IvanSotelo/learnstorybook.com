@@ -2,10 +2,10 @@
 title: 'Bouw een eenvoudige component'
 tocTitle: 'Eenvoudige component'
 description: 'Bouw een eenvoudige component in isolatie'
-commit: '3d9cd8c'
+commit: '97d6750'
 ---
 
-We zullen onze gebruikersinterface bouwen volgens de [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)-methodologie. Het is een proces dat UI's van onderaf opbouwt, beginnend met losse componenten en eindigend met schermen. CDD helpt je grip te houden op de complexiteit naarmate je de applicatie verder uitbouwt.
+We zullen onze gebruikersinterface bouwen volgens de [Component-Driven Development](https://www.componentdriven.org/)-methodologie. Het is een proces dat UI's van onderaf opbouwt, beginnend met losse componenten en eindigend met schermen. CDD helpt je grip te houden op de complexiteit naarmate je de applicatie verder uitbouwt.
 
 ## Task
 
@@ -18,7 +18,7 @@ We zullen onze gebruikersinterface bouwen volgens de [Component-Driven Developme
 
 Wanneer we beginnen met het bouwen van `Task`, schrijven we eerst onze test states die overeenkomen met de verschillende soorten taken die hierboven zijn beschreven. Vervolgens gebruiken we Storybook om de component in isolatie te bouwen met behulp van gemockte data. We zullen het uiterlijk van de component visueel testen voor elke _state_ terwijl we verder gaan.
 
-Dit proces is vergelijkbaar met [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD); je zou het "[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)" kunnen noemen.
+Dit proces is vergelijkbaar met [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD); je zou het "[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)" kunnen noemen.
 
 ## Laten we beginnen
 
@@ -91,7 +91,7 @@ Om onze stories te definiëren, roepen we eenmaal `add()` op voor elk van onze t
 Bij het aanmaken van een story gebruiken we een basistaak (`task`) om de vorm van de taak uit te bouwen die de component verwacht. Dit wordt typisch gemodelleerd naar hoe de echte data eruit ziet. Nogmaals, als we deze vorm `export`-en, kunnen we deze in latere stories hergebruiken, zoals we zullen zien.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> helpen je bij het verifiëren van interacties bij het geisoleerd bouwen van UI-componenten. Vaak heb je geen toegang tot de functies en state die je hebt in de context van de app. Gebruik <code>action()</code> om ze in te stubben.
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> helpen je bij het verifiëren van interacties bij het geisoleerd bouwen van UI-componenten. Vaak heb je geen toegang tot de functies en state die je hebt in de context van de app. Gebruik <code>action()</code> om ze in te stubben.
 </div>
 
 ## Configuratie
