@@ -4,7 +4,7 @@ tocTitle: 'Empezando'
 description: 'Configurar Svelte Storybook en tu entorno de desarrollo'
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe otras ediciones para [Vue](/vue/es/get-started), [Angular](/angular/es/get-started), [React](/angular/es/get-started) y [React Native](/react-native/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Svelte; existe otras ediciones para [Vue](/intro-to-storybook/vue/es/get-started), [Angular](/intro-to-storybook/angular/es/get-started), [React](/intro-to-storybook/react/es/get-started) y [React Native](/intro-to-storybook/react-native/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -66,35 +66,31 @@ Cree un archivo `.babelrc` en la raíz del proyecto con lo siguiente:
 Y un nuevo campo en `package.json`:
 
 ```json
-"jest": {
+{
+  "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
-    "moduleFileExtensions": [
-      "js",
-      "svelte",
-      "json"
-    ],
+    "moduleFileExtensions": ["js", "svelte", "json"],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|scss|stylesheet)$": "<rootDir>/__mocks__/styleMock.js"
     },
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-dom/extend-expect"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
-      "/storybook-static/"
-    ]
+    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
+    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/storybook-static/"]
   }
+}
 ```
 
 Y se requiere un nuevo script para ejecutar Jest:
 
 ```json
-"test": "jest --watchAll"
+{
+  "scripts": {
+    "test": "jest --watchAll"
+  }
+}
 ```
 
 <div class="aside">El uso de la bandera `--watchAll` en el script es para evitar que Jest arroje un error, porque en esta etapa todavía no hay un repositorio configurado. Eso se abordará más adelante.</div>
@@ -102,6 +98,8 @@ Y se requiere un nuevo script para ejecutar Jest:
 Para asegurarnos de que todo funciona correctamente, necesitamos crear un archivo de prueba. En la carpeta `src`, agregue un archivo llamado `Sample.test.js` con lo siguiente:
 
 ```javascript
+// Sample.test.js
+
 function sum(a, b) {
   return a + b;
 }
@@ -119,7 +117,7 @@ Ahora podemos comprobar rápidamente que los diversos entornos de nuestra aplica
 # Run the test runner (Jest) in a terminal:
 npm run test
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 npm run storybook
 
 # Run the frontend app proper on port 5000:
@@ -134,7 +132,7 @@ Dependiendo de en qué parte de la aplicación estés trabajando, es posible que
 
 ## Reusa CSS
 
-Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Copia y pega [este CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dentro del archivo `public/global.css`.
+Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), por lo que no necesitaremos escribir CSS en este tutorial. Copia y pega [este CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dentro del archivo `src/index.css`.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -149,8 +147,8 @@ Para que coincida con el diseño previsto del tutorial, deberá transferir las c
 <div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/font src/assets/font
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon src/assets/icon
 ```
 
 Finalmente necesitamos actualizar nuestro script storybook para servir el directorio `public` (en `package.json`):

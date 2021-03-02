@@ -60,7 +60,7 @@ Then we create a container which grabs the data for `PureInboxScreen` in `screen
 // screens/InboxScreen.js
 import * as React from 'react';
 import { connect } from 'react-redux';
-import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from '../components/PureInboxScreen';
 
 const InboxScreen = ({ error }) => {
   return <PureInboxScreen error={error} />;
@@ -87,8 +87,6 @@ export default function HomeScreen() {
   );
 }
 ```
-
-<div class="aside"><p>After this change, App-test that was setup by expo will probably break, you can bypass this by deleting the appropriate file in the __tests__ folder or adjust your test accordingly.</p></div>
 
 However, where things get interesting is in rendering the story in Storybook.
 
@@ -174,6 +172,6 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.

@@ -60,7 +60,7 @@ Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInbo
 // screens/InboxScreen.js
 import * as React from 'react';
 import { connect } from 'react-redux';
-import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from '../components/PureInboxScreen';
 
 const InboxScreen = ({ error }) => {
   return <PureInboxScreen error={error} />;
@@ -87,8 +87,6 @@ export default function HomeScreen() {
   );
 }
 ```
-
-<div class="aside"><p>Después de este cambio, la prueba de aplicación que configuró expo probablemente se romperá, puede omitir esto eliminando el archivo apropiado en la carpeta __tests__ o ajustar su prueba en consecuencia.</p></div>
 
 Sin embargo, al intentar mostrar nuestro componente "contenedor" dentro de Storybook las cosas se ponen interesantes.
 
@@ -174,6 +172,6 @@ Empezamos desde abajo con `Task`, luego progresamos a `TaskList`, ahora estamos 
   />
 </video>
 
-[**El desarrollo basado en componentes**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
+[**El desarrollo basado en componentes**](https://www.componentdriven.org/) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
 
 Aún no hemos terminado, el trabajo no termina cuando se construye la interfaz de usuario. También tenemos que asegurarnos de que siga siendo duradero a lo largo del tiempo.
