@@ -14,10 +14,9 @@ toc:
     'composite-component',
     'data',
     'screen',
+    'deploy',
     'test',
     'using-addons',
-    'creating-addons',
-    'deploy',
     'conclusion',
     'contribute',
   ]
@@ -57,7 +56,7 @@ contributors:
     {
       src: 'https://avatars2.githubusercontent.com/u/9523719',
       name: 'Kyle Holmberg',
-      detail: 'Engineer at Acorns',
+      detail: 'Engineer at Air',
     },
     {
       src: 'https://avatars2.githubusercontent.com/u/1474548',
@@ -73,23 +72,23 @@ twitterShareText: 'I’m learning Storybook! It’s a great dev tool for UI comp
 <div class="badge-box">
   <div class="badge">
     <img src="/frameworks/logo-react.svg">
-    <a href="/intro-to-storybook/react/en/get-started/"> React</a>
+     React
   </div>
   <div class="badge">
     <img src="/frameworks/logo-react.svg">
-    <a href="/intro-to-storybook/react-native/en/get-started/"> React Native</a>
+     React Native
   </div>
   <div class="badge">
     <img src="/frameworks/logo-vue.svg">
-    <a href="/intro-to-storybook/vue/en/get-started/"> Vue</a>
+     Vue
   </div>
   <div class="badge">
     <img src="/frameworks/logo-angular.svg">
-    <a href="/intro-to-storybook/angular/en/get-started/"> Angular</a>
+     Angular
   </div>
   <div class="badge">
    <img src="/frameworks/logo-svelte.svg">
-   <a href="/intro-to-storybook/svelte/en/get-started/">  Svelte</a>
+     Svelte
   </div>
 </div>
 

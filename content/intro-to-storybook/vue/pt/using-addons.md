@@ -2,15 +2,15 @@
 title: 'Extras'
 tocTitle: 'Extras'
 description: 'Aprender a integrar e usar extras com recurso a um exemplo popular'
-commit: 'b3bca4a'
+commit: '45b6600'
 ---
 
-Storybook possui um sistema robusto de [extras](https://storybook.js.org/addons/introduction/) com o qual se pode aumentar a experiência de desenvolvimento para qualquer elemento da sua equipa. Se estiver a seguir este tutorial, pode ter reparado que já foram mencionados múltiplos extras e já terá implementado um no [capitulo de testes](/vue/pt/test/).
+Storybook possui um sistema robusto de [extras](https://storybook.js.org/docs/vue/configure/storybook-addons) com o qual se pode aumentar a experiência de desenvolvimento para qualquer elemento da sua equipa. Se estiver a seguir este tutorial, pode ter reparado que já foram mencionados múltiplos extras e já terá implementado um no [capitulo de testes](/intro-to-storybook/vue/pt/test/).
 
 <div class="aside">
     <strong>Á procura de uma lista de extras?</strong>
     <br/>
-    😍 A lista de extras oficiais e da comunidade pode ser consultada <a href="https://storybook.js.org/addons/addon-gallery/">aqui</a>.
+    😍 A lista de extras oficiais e da comunidade pode ser consultada <a href="https://storybook.js.org/addons">aqui</a>.
 </div>
 
 Poderíamos ficar aqui eternamente a discutir como configurar e usar os extras para todos os casos. Por enquanto, vamos focar-nos em integrar um dos extras mais populares no ecossistema Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
@@ -104,7 +104,7 @@ A etiqueta é constante e irá aparecer no painel de extras á esquerda do campo
 
 ## Os extras aumentam a esfera de ação do teu Storybook
 
-Não somente a tua instância Storybook serve como um [ambiente CDD](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) fantástico, mas agora estamos também a fornecer uma forma de documentação interativa. Os adereços (ou props) são fantásticos, mas quer um designer quer uma outra pessoa qualquer nova que é apresentada ao código do componente irá ser capaz de entender qual é o seu comportamento rapidamente graças ao Storybook e a este extra.
+Não somente a tua instância Storybook serve como um [ambiente CDD](https://www.componentdriven.org/) fantástico, mas agora estamos também a fornecer uma forma de documentação interativa. Os adereços (ou props) são fantásticos, mas quer um designer quer uma outra pessoa qualquer nova que é apresentada ao código do componente irá ser capaz de entender qual é o seu comportamento rapidamente graças ao Storybook e a este extra.
 
 ## Utilização de Knobs para afinar os casos extremos
 
@@ -164,13 +164,9 @@ Agora que foi adicionada a estória, podemos reproduzir este caso extremo com re
 
 ![Aqui está ele no Storybook](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-Se estiverem a ser usados [testes de regressão visual](/vue/pt/test/), iremos ser informados se a nossa solução elíptica for quebrada.
+Se estiverem a ser usados [testes de regressão visual](/intro-to-storybook/vue/pt/test/), iremos ser informados se a nossa solução elíptica for quebrada.
 Tais casos extremos considerados obscuros têm tendência a ser esquecidos!
 
 ## Fusão das alterações
 
 Não esquecer de fundir as alterações com o git!
-
-## Partilha de extras com a equipa
-
-Knobs é uma forma fantástica de forma a permitir que elementos não programadores brinquem com os componentes e estórias. No entanto, pode ser difícil para estes executarem o Storybook nos seus ambientes locais. É por isso que uma implementação online pode ajudar em muito. No próximo capitulo iremos fazer exatamente isso!

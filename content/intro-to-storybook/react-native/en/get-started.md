@@ -4,7 +4,7 @@ tocTitle: 'Get started'
 description: 'Setup Storybook in your development environment'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React Native; other editions exist for [React](/react/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) and [Svelte](/svelte/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React Native; other editions exist for [React](/intro-to-storybook/react/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) and [Ember](/intro-to-storybook/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -89,16 +89,18 @@ yarn test
 yarn storybook
 
 # Run the frontend app proper on port 19002:
-yarn start
+yarn web
 ```
 
 ![3 modalities](/intro-to-storybook/app-three-modalities-rn.png)
+
+Checking our Storybook at this point, you might see that there's no stories displayed. That's ok, we'll take care of it shortly, for now, let's continue working on getting our application properly setup.
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. Contrary to the other tutorials, we wont copy over the compiled CSS, as React Native handles styling in a whole different way, but instead create a new file `constants/globalStyles.js` and add the following:
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Contrary to the other tutorials, we wont copy over the compiled CSS, as React Native handles styling in a whole different way, but instead create a new file `constants/globalStyles.js` and add the following:
 
 <details>
   <summary>Click to expand and see the full file contents</summary>
@@ -245,39 +247,36 @@ If you want to modify the styling, the source LESS files are provided in the Git
 To match the intended design, you'll need to download both the font and icon directories and place them inside the `assets` folder.
 
 <div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the icons folder directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a> and the font <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">here</a>.</p></div>
+<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the icons folder directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">here</a> and the font <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">here</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon assets/icon
 svn export https://github.com/google/fonts/trunk/ofl/nunitosans assets/font
 ```
 
-Next the assets need to be loaded into the app, for that we're going to update `App.js` to the following:
+Next the assets need to be loaded into the app, for that we're going to update `hooks/useCachedResources.js` to the following:
 
 ```javascript
-// App.js
+// hooks/useCachedResources.js
 async function loadResourcesAndDataAsync() {
   try {
-    SplashScreen.preventAutoHide();
-
-    // Load our initial navigation state
-    setInitialNavigationState(await getInitialState());
+    SplashScreen.preventAutoHideAsync();
 
     // Load fonts
     await Font.loadAsync({
       ...Ionicons.font,
-      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      percolate: require('./assets/icon/percolate.ttf'),
-      'NunitoSans-Bold': require('./assets/font/NunitoSans-Bold.ttf'),
-      'NunitoSans-Italic': require('./assets/font/NunitoSans-Italic.ttf'),
-      NunitoSans: require('./assets/font/NunitoSans-Regular.ttf'),
+      'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
+      percolate: require('../assets/icon/percolate.ttf'),
+      'NunitoSans-Bold': require('../assets/font/NunitoSans-Bold.ttf'),
+      'NunitoSans-Italic': require('../assets/font/NunitoSans-Italic.ttf'),
+      NunitoSans: require('../assets/font/NunitoSans-Regular.ttf'),
     });
   } catch (e) {
     // We might want to provide this error information to an error reporting service
     console.warn(e);
   } finally {
     setLoadingComplete(true);
-    SplashScreen.hide();
+    SplashScreen.hideAsync();
   }
 }
 ```

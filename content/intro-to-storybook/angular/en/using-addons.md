@@ -4,13 +4,13 @@ tocTitle: 'Addons'
 description: 'Learn how to integrate and use addons using a popular example'
 ---
 
-Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/angular/en/test/).
+Storybook boasts a robust system of [addons](https://storybook.js.org/docs/angular/configure/storybook-addons) with which you can enhance the developer experience for
+everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/intro-to-storybook/angular/en/test/).
 
 <div class="aside">
 <strong>Looking for a list of potential addons?</strong>
 <br/>
-😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons/addon-gallery/">here</a>.
+😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons">here</a>.
 </div>
 
 We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
@@ -100,7 +100,7 @@ As documented [here](https://github.com/storybooks/storybook/tree/master/addons/
 
 ## Addons Evolve Your Storybook's Scope
 
-Not only does your Storybook instance serve as a wonderful [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
+Not only does your Storybook instance serve as a wonderful [CDD environment](https://www.componentdriven.org/), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
 
 ## Using Knobs To Find Edge-Cases
 
@@ -159,12 +159,10 @@ Now we've added the story, we can reproduce this edge-case with ease whenever we
 
 ![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-If we are using [visual regression testing](/angular/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+If we are using [visual regression testing](/intro-to-storybook/angular/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
 
 ### Merge Changes
 
 Don't forget to merge your changes with git!
 
-## Sharing Addons With The Team
-
-Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
+<div class="aside"><p>As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/create-an-addon/react/en/introduction/">create an addon guide</a> we'll teach you that, by creating a addon that will help you supercharge your development workflow.</p></div>
